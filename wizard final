@@ -1,0 +1,222 @@
+package rpg;
+public class CharacterDuel {
+    public static DragonKnight c2 = new DragonKnight("DragonKnight",33,10,7,500);
+    public static KeeperOfTheLight c3 = new KeeperOfTheLight("KeeperOfTheLight",20,5,99,30,500);
+    public static Dice die = new Dice();
+    
+    public static void run(){
+  
+       int counter = 1;
+       
+       while(c2.getCurrentLife() > 0 && c3.getCurrentLife() > 0) {
+           
+           
+           System.out.println("");
+           System.out.println("/*/*/*/*/*/*Round "+counter+" fight!*/*/*/*/*/*/*/");
+           
+           
+           System.out.println(c2.getName()+" HP: "+c2.getCurrentLife()+"/"+c2.getMaxLife());
+           System.out.println(c3.getName()+" HP: "+c3.getCurrentLife()+"/"+c3.getMaxLife()+" Mana: "+c3.getCurrentMagic()+"/"+c3.getMaxMagic());
+           
+           int turn = die.roll();
+           
+           if(turn < 3){
+               character2_attack();
+               character1_attack();
+           }else{
+               character1_attack();
+               character2_attack();
+           }
+           counter++;
+        }
+        
+        int life1 = c2.getCurrentLife();
+        int life2 = c3.getCurrentLife();   
+        if(life1 < 0){
+            life1 = 0;
+        }     
+        if(life2 < 0){
+            life2 = 0;
+        }
+        
+           System.out.println();
+           System.out.println( "THE MATCH HAS ENDED: ");
+           System.out.println("☠☠☠☠☠☠☠☠☠☠☠☠☠☠☠☠☠☠");
+           System.out.println(c2.getName()+ " HP : " + life1);
+           System.out.println(c3.getName()+ " HP : " + life2);
+           
+           
+
+           System.out.println("");
+           if(life1 <= 0 && life2 > 0 || life2 > life1){
+               System.out.println(c3.getName() + " Wins!");
+          
+           }
+           
+           else if(life2 <= 0 && life1 > 0 || life1 > life2){
+               System.out.println(c2.getName() + " Wins!");
+         
+               
+           }
+           
+           else if(life1 <= 0 && life2 <= 0){
+               System.out.println("Draw!");
+          
+           }
+           
+           
+           
+       }
+    
+    public static void character2_attack(){
+        int attack2 = c3.attack();
+        int a1 = die.roll();
+           switch(a1){
+               case 1:
+                   if(c3.getCurrentLife() <= 0){
+                     
+                   }else{
+                        c2.wound(attack2);
+                        System.out.println(c3.getName()+ " attack " + c2.getName() + " for " + attack2);
+                   }
+                   break;
+               case 2:
+                    if(c3.getCurrentLife() == c3.getMaxLife()){
+                        System.out.println(c3.getName() + " is already at Max HP");
+                    }else if(c3.getCurrentLife() <= 0){
+                        
+                    }else{
+                        int heal = c3.castHeal();
+                        c3.heal(heal);  
+                    }
+                   
+                   break;
+               case 3:
+                   if(c3.getCurrentLife() <= 0){
+                       
+                   }else{
+                        int damage = c3.castLightningBolt();
+                        c2.wound(damage);
+                        if(c3.getCurrentMagic()<5){
+                           
+                        }else{
+                            System.out.println(c3.getName()+ " casts lightning bolt and damages "+ c2.getName() +" for "+damage);
+                        }  
+                   }
+                   break;
+               case 4:
+                   if(c3.getCurrentLife() <= 0){
+                       
+                   }else{
+                        c2.wound(attack2);
+                        System.out.println(c3.getName()+ " attack " + c2.getName() + " for " + attack2);
+                   }
+                   break;
+               case 5: 
+                   if(c3.getCurrentLife() == c3.getMaxLife()){
+                        System.out.println(c3.getName() + " is already at Max HP!");
+                    }else if(c3.getCurrentLife() <= 0){
+                        
+                    }else{
+                        int heal = c3.castHeal();
+                        c3.heal(heal);
+                    }
+                   break;
+               case 6:
+                   if(c3.getCurrentLife() <= 0){
+                      
+                   }else{
+                        int damage = c3.castLightningBolt();
+                        c2.wound(damage);
+                        if(c3.getCurrentMagic()<5){
+                            
+                        }else{
+                            System.out.println(c3.getName()+ " casts lightning bolt and damages "+ c2.getName() +" for "+damage);
+                        }  
+                   }
+                   break;
+               default:
+                   System.out.println(c3.getName() + " did nothing.");
+                   break;
+           }
+    }
+    
+    
+    
+    public static void character1_attack(){
+        int attack1 = c2.attack();
+        int sword = c2.sword();
+        int demolish = c2.demolish();
+        
+           int a2 = die.roll();
+           switch(a2){
+               case 1:
+                   
+                   if(c2.getCurrentLife() <= 0){
+                       //do nothing
+                   }else{
+                        c3.wound(sword);
+                        System.out.println(c2.getName()+ " attacks with Sword and damages " + c3.getName() + " for " + sword);
+                   }
+                   break;
+               case 2:
+                   
+                   if(c2.getCurrentLife() >= c2.getMaxLife()){
+                       System.out.println(c2.getName() + " is already at Max HP!");
+                   }else if( c2.getCurrentLife() <=0){
+                        //Do nothing
+                   }else{
+                       int heal = die.roll();
+                        c2.heal(heal);
+                        System.out.println(c2.getName()+ " healed for "+ heal);
+                   }
+                   break;
+               case 3:
+                   
+                   if(c2.getCurrentLife() <= 0){
+                       //do nothing
+                   }else{
+                        c3.wound(demolish);
+                        System.out.println(c2.getName()+ " demolishes " + c3.getName() + " for " + demolish);
+                   }
+                   break;
+               case 4:
+                   //Attack
+                   if(c2.getCurrentLife() <= 0){
+                       //do nothing
+                   }else{
+                        c3.wound(attack1);
+                        System.out.println(c2.getName()+ " attack " + c3.getName() + " for " + attack1);
+                   }
+                   break;
+               case 5: 
+                   //Heal
+                   if(c2.getCurrentLife() >= c2.getMaxLife()){
+                       System.out.println(c2.getName() + " is already at Max HP!");
+                   }else if( c2.getCurrentLife() <=0){
+                        //Do nothing
+                   }else{
+                       int heal = die.roll();
+                        c2.heal(heal);
+                        System.out.println(c2.getName()+ " healed for "+ heal);
+                   }
+                   break;
+               case 6:
+                   //Attack
+                   if(c2.getCurrentLife() <= 0){
+                       //do nothing
+                   }else{
+                        c3.wound(attack1);
+                        System.out.println(c2.getName()+ " attack " + c3.getName() + " for " + attack1);
+                   }
+                   break;
+               default:
+                   System.out.println(c2.getName() + " did nothing.");
+                   break;
+           }
+        
+    }
+    
+}
+
+
