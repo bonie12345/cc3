@@ -1,0 +1,44 @@
+public class AntiMage extends Character{
+    static Dice dice = new Dice();
+    private int maxSkill;
+    private int currentSkill;
+    
+    public AntiMage(String n, int s, int d, int i){
+        super(n,s,d,i);
+        this.maxSkill = 20;
+        this.currentSkill = maxSkill;
+    }
+    public int useSwordSlash(){
+        if(currentSkill >= 5){
+            currentSkill -= 5;
+            return dice.roll()+dexterity;
+        }else{
+            return 0;
+        }
+        }
+    
+    public int castHeal(){
+        if(currentSkill >= 8){
+            currentSkill -= 8;
+        }
+         int h = dice.roll()+dexterity;
+          super.heal(h);
+          return h;
+    }
+    
+    public int getMaxSkill(){
+        return maxSkill;
+    }
+    
+    public int getCurrentSkill(){
+        return currentSkill;
+    }
+    
+    public void setMaxSkill(int ms){
+        this.maxSkill = ms;
+    }
+    
+    public void setCurrentSkill(int cs){
+        this.currentSkill = cs;
+    }
+}
